@@ -209,9 +209,8 @@ env:
 
 ## Support
 
-- 📚 [Documentation](https://docs.qualitymax.ai)
-- 💬 [Discord Community](https://discord.gg/qualitymax)
-- 📧 [Email Support](mailto:support@qualitymax.ai)
+- 📚 [Documentation](https://qamax.co)
+- 📧 [Email Support](mailto:contact@qamax.co)
 - 🐛 [Report Issues](https://github.com/Quality-Max/qualitymax-github-action/issues)
 
 ## License
