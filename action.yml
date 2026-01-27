@@ -1,0 +1,67 @@
+name: 'QualityMax Test Runner'
+description: 'Run AI-powered E2E tests in your CI/CD pipeline. Zero configuration, instant results.'
+author: 'QualityMax'
+
+branding:
+  icon: 'check-circle'
+  color: 'purple'
+
+inputs:
+  api-key:
+    description: 'QualityMax API key (get it from app.qualitymax.ai/settings/api)'
+    required: true
+  project-id:
+    description: 'QualityMax project ID'
+    required: true
+  test-suite:
+    description: 'Test suite to run: all, smoke, regression, or custom'
+    required: false
+    default: 'all'
+  test-ids:
+    description: 'Comma-separated list of specific test IDs to run (for custom suite)'
+    required: false
+  base-url:
+    description: 'Base URL to test against (overrides project default)'
+    required: false
+  browser:
+    description: 'Browser to use: chromium, firefox, or webkit'
+    required: false
+    default: 'chromium'
+  headless:
+    description: 'Run tests in headless mode'
+    required: false
+    default: 'true'
+  timeout-minutes:
+    description: 'Maximum execution time in minutes'
+    required: false
+    default: '30'
+  fail-on-test-failure:
+    description: 'Fail the workflow if any tests fail'
+    required: false
+    default: 'true'
+  post-pr-comment:
+    description: 'Post test results as a PR comment'
+    required: false
+    default: 'true'
+
+outputs:
+  execution-id:
+    description: 'Unique execution ID for this test run'
+  status:
+    description: 'Final status: passed, failed, cancelled, timeout'
+  total-tests:
+    description: 'Total number of tests run'
+  passed-tests:
+    description: 'Number of tests that passed'
+  failed-tests:
+    description: 'Number of tests that failed'
+  duration-seconds:
+    description: 'Total execution time in seconds'
+  report-url:
+    description: 'URL to the full test report'
+  summary-markdown:
+    description: 'Pre-formatted markdown summary for PR comments'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
