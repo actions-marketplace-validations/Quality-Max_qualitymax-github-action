@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://app.qamax.co/static/images/qamax-logo.png" alt="QualityMax" width="200" />
+  <img src="https://app.qamax.co/static/img/quality-max-logo.png" alt="QualityMax" width="200" />
 </p>
 
 <h1 align="center">QualityMax Test Runner</h1>
