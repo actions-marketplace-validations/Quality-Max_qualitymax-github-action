@@ -221,14 +221,29 @@ async function run(): Promise<void> {
       const match = projects.find(
         (p) => p.name.toLowerCase() === inputs.projectName.toLowerCase()
       );
-      if (!match) {
-        const available = projects.map((p) => p.name).join(', ');
-        throw new Error(
-          `Project "${inputs.projectName}" not found. Available projects: ${available || 'none'}`
+      if (match) {
+        resolvedProjectId = String(match.id);
+        core.info(`Resolved project "${inputs.projectName}" → ${resolvedProjectId}`);
+      } else {
+        // Fallback: try resolving by linked repository URL
+        core.info(
+          `No exact name match for "${inputs.projectName}". ` +
+            `Trying to resolve by repository: ${ghContext.repository}...`
         );
+        const fallback = await client.resolveProject(ghContext.repository);
+        if (fallback) {
+          resolvedProjectId = fallback;
+          core.info(
+            `Resolved project via linked repository → ${resolvedProjectId}`
+          );
+        } else {
+          const available = projects.map((p) => p.name).join(', ');
+          throw new Error(
+            `Project "${inputs.projectName}" not found. Available projects: ${available || 'none'}. ` +
+              'Tip: use the exact project name from QualityMax, or link the repository to your project.'
+          );
+        }
       }
-      resolvedProjectId = match.id;
-      core.info(`Resolved project "${inputs.projectName}" → ${resolvedProjectId}`);
     } else {
       core.info(`Auto-detecting project from repository: ${ghContext.repository}...`);
       const detected = await client.resolveProject(ghContext.repository);
